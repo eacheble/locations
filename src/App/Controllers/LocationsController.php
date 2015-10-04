@@ -2,52 +2,59 @@
 
 namespace App\Controllers;
 
+use App\Services\LocationsService;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-class LocationsController implements ControllerProviderInterface
+class LocationsController
 {
-    private $locations = array(
-        '00001'=> array(
-            'name' => 'Remote Control Car',
-            'quantity' => '53',
-            'description' => '...',
-            'image' => 'racing_car.jpg',
-        ),
-        '00002' => array(
-            'name' => 'Raspberry Pi',
-            'quantity' => '13',
-            'description' => '...',
-            'image' => 'raspberry_pi.jpg',
-        ),
-    );
-    /**
-     * Returns routes to connect to the given application.
-     *
-     * @param Application $app An Application instance
-     *
-     * @return \Silex\ControllerCollection A ControllerCollection instance
-     */
-    public function connect(Application $app)
+    private $app;
+    private $locationsService;
+
+    public function __construct(Application $application, LocationsService $locationsService)
     {
-        $factory = $app['controllers_factory'];
-
-        $factory->get('/', 'App\Controllers\LocationsController::getHome');
-        $factory->get('/{mediaId}', 'App\Controllers\LocationsController::getMediaLocation');
-
-        return $factory;
+        $this->app = $application;
+        $this->locationsService = $locationsService;
     }
 
-    public function getHome(Application $app)
+    public function getLocation($mediaId)
     {
-        return json_encode($this->locations);
+        $result = $this->locationsService->getLocationInfo($mediaId);
+        return $this->buildResponse($result);
     }
 
-    public function getMediaLocation(Application $app, $mediaId)
+    private function buildResponse($result)
     {
-        if (!isset($this->locations[$mediaId])) {
-            $app->abort(404, "media {$mediaId} does not exist.");
+        $location = $this->buildLocationJson($result);
+        return JsonResponse::create($location, $result['meta']['code'], array('Content-Type' => 'application/json'));
+    }
+
+    private function buildLocationJson($result)
+    {
+        $location = null;
+        $id = null;
+        $status = null;
+        $json_array = [];
+        if (is_null($result)) {
+            return array('STATUS' => 500);
         }
-        return json_encode($this->locations[$mediaId]);
+        if (isset($result['data'])) {
+            if (isset($result['data']['location'])) {
+                $location = $result['data']['location'];
+                $json_array['location'] = $location;
+            }
+            if (isset($result['data']['id'])) {
+                $id = $result['data']['id'];
+                $json_array['id'] = $id;
+            }
+        }
+        if (isset($result['meta']['code'])) {
+            $status = $result['meta']['code'];
+        } else {
+            $status = 500;
+        }
+        $json_array['STATUS'] = $status;
+
+        return $json_array;
     }
 }
