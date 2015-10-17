@@ -24,7 +24,6 @@ class Bootstrap
         $app->get('/', function () {
             return "API is UP";
         });
-        //$app->get('/locations', "locations.controller:getHome");
         $app->get('/locations/{mediaId}', "locations.controller:getLocation");
     }
 }
