@@ -15,7 +15,7 @@ Installation
 ------------
 ```
 $ git clone https://github.com/eacheble/locations-test.git
-$ composer update
+$ composer install
 ```
 
 Running the WS locally
