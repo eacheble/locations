@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Config;
+namespace App\Bootstrap;
 
 use App\Controllers\LocationsController;
 use App\Services\LocationsService;

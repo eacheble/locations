@@ -7,6 +7,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 $app = new Application();
 $app['debug'] = true;
 
-\App\Config\Bootstrap::init($app);
+\App\Bootstrap\Bootstrap::init($app);
 
 $app->run();
