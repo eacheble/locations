@@ -24,11 +24,11 @@ class LocationsControllerTest extends \PHPUnit_Framework_TestCase
         $this->locationsService->expects($this->any())->method('getLocationInfo')->will($this->returnValue($result));
         $response = array('STATUS'=>400);
 
-        $actual_response = $this->locationsController->getLocation($this->any());
+        $actualResponse = $this->locationsController->getLocation($this->any());
 
-        $this->assertNotEmpty($actual_response);
-        $this->assertEquals(400, $actual_response->getStatusCode());
-        $this->assertEquals(json_encode($response), $actual_response->getContent());
+        $this->assertNotEmpty($actualResponse);
+        $this->assertEquals(400, $actualResponse->getStatusCode());
+        $this->assertEquals(json_encode($response), $actualResponse->getContent());
     }
 
     public function testRequestWithValidIdReturnsEmptyLocationInfo()
@@ -37,11 +37,11 @@ class LocationsControllerTest extends \PHPUnit_Framework_TestCase
         $this->locationsService->expects($this->any())->method('getLocationInfo')->will($this->returnValue($result));
         $response = array('id'=>'4_3', 'STATUS'=>200);
 
-        $actual_response = $this->locationsController->getLocation($this->any());
+        $actualResponse = $this->locationsController->getLocation($this->any());
 
-        $this->assertNotEmpty($actual_response);
-        $this->assertEquals(200, $actual_response->getStatusCode());
-        $this->assertEquals(json_encode($response), $actual_response->getContent());
+        $this->assertNotEmpty($actualResponse);
+        $this->assertEquals(200, $actualResponse->getStatusCode());
+        $this->assertEquals(json_encode($response), $actualResponse->getContent());
     }
 
     public function testRequestWithValidIdReturnsLocationInfo()
@@ -57,10 +57,10 @@ class LocationsControllerTest extends \PHPUnit_Framework_TestCase
         );
         $response = array('location'=>$location, "id"=>"4_3", 'STATUS'=>200);
 
-        $actual_response = $this->locationsController->getLocation($this->any());
+        $actualResponse = $this->locationsController->getLocation($this->any());
 
-        $this->assertNotEmpty($actual_response);
-        $this->assertEquals(200, $actual_response->getStatusCode());
-        $this->assertEquals(json_encode($response), $actual_response->getContent());
+        $this->assertNotEmpty($actualResponse);
+        $this->assertEquals(200, $actualResponse->getStatusCode());
+        $this->assertEquals(json_encode($response), $actualResponse->getContent());
     }
 }

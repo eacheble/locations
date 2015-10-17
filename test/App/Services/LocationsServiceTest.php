@@ -20,8 +20,8 @@ class LocationsServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMediaInfoSuccess()
     {
-        $json_file = file_get_contents(__DIR__ . "/" . "/../../resources/responseEmptyLocation.json");
-        $stream = Stream::factory($json_file);
+        $jsonFile = file_get_contents(__DIR__ . "/" . "/../../resources/responseEmptyLocation.json");
+        $stream = Stream::factory($jsonFile);
         $mock = new Mock([
             new Response(200, ['Content-Type' => 'application/json'], $stream)
         ]);
@@ -37,8 +37,8 @@ class LocationsServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMediaInfoBadRequest()
     {
-        $json_file = file_get_contents(__DIR__ . "/" . "/../../resources/error.json");
-        $stream = Stream::factory($json_file);
+        $jsonFile = file_get_contents(__DIR__ . "/" . "/../../resources/error.json");
+        $stream = Stream::factory($jsonFile);
         $mock = new Mock([
             new Response(400, ['Content-Type' => 'application/json'], $stream)
         ]);

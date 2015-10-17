@@ -24,8 +24,8 @@ class LocationsService
     public function __construct()
     {
         $this->client = new Client();
-        $app_config_file = parse_ini_file(__DIR__ . "/" . "/../resources/config.ini");
-        $this->instagramAppClientID = $app_config_file['CLIENT_ID'];
+        $appConfigFile = parse_ini_file(__DIR__ . "/" . "/../resources/config.ini");
+        $this->instagramAppClientID = $appConfigFile['CLIENT_ID'];
     }
 
     public function getLocationInfo($mediaId)

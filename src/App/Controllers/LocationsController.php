@@ -34,18 +34,18 @@ class LocationsController
         $location = null;
         $id = null;
         $status = null;
-        $json_array = [];
+        $jsonArray = [];
         if (is_null($result)) {
             return array('STATUS' => 500);
         }
         if (isset($result['data'])) {
             if (isset($result['data']['location'])) {
                 $location = $result['data']['location'];
-                $json_array['location'] = $location;
+                $jsonArray['location'] = $location;
             }
             if (isset($result['data']['id'])) {
                 $id = $result['data']['id'];
-                $json_array['id'] = $id;
+                $jsonArray['id'] = $id;
             }
         }
         if (isset($result['meta']['code'])) {
@@ -53,8 +53,8 @@ class LocationsController
         } else {
             $status = 500;
         }
-        $json_array['STATUS'] = $status;
+        $jsonArray['STATUS'] = $status;
 
-        return $json_array;
+        return $jsonArray;
     }
 }
